@@ -522,8 +522,3 @@ class View:
 
     def close(self):
         sys.exit()
-
-
-
-
-

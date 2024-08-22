@@ -1,6 +1,4 @@
 from Categoria import Categoria
-from Culinaria import Culinaria
-from BancoDeDados import BancoDeDados
 import mysql.connector
 from mysql.connector import Error
 
