@@ -1,10 +1,8 @@
-import RestauranteController as Controller
 from RestauranteController import *
 import tkinter as tk
 from tkinter import ttk
 from tkinter import scrolledtext
 from tkinter import Toplevel
-from tkinter import messagebox
 import sys
 
 
@@ -31,20 +29,16 @@ class View:
         self.root.title("Catálogo de restaurantes")
         self.root.configure(bg=self.yellow)
         self.root.geometry("500x550")
+        self.frameAtual = None
 
-        #Valores que serão passados ao controller
+        #Bloco principal
         self.telaPrincipal()
-        # self.telaAlterar()
-        # self.telaConsulta()
-        # self.telaLista()
-        # self.alertSucesso("Cadastro")
 
     def set_controller(self, controller):
         self.controller = controller
 
     def telaPrincipal(self):
-
-        #Definindo o tamanho dos botões
+        #Tamanho dos botões
         largura = 13
         altura = 2
 
@@ -93,6 +87,8 @@ class View:
 
         self.frameTelaCadastro = tk.Frame(self.root, bg=self.yellow)
         self.frameTelaCadastro.pack(fill="both", expand=True)
+
+        self.frameAtual = self.frameTelaCadastro
 
         #Tamanho dos componentes
         largura = 18
@@ -152,7 +148,7 @@ class View:
         #Combobox de categoria de restaurante
         self.categoria = tk.StringVar()
         comboCategoria = ttk.Combobox(bottomContainer, width=largura, font=self.fonteT3, textvariable=self.categoria,
-                                      values=["Familiar/Casual", "Fast Food", "Café", "Luxo", "Clássico "])
+                                      values=["Familiar/casual", "Fast Food", "Café", "Luxo", "Clássico"])
         comboCategoria.grid(column=1, row=1, padx=margemx, pady=margemy, sticky="nsew")
 
         labelCulinaria = tk.Label(bottomContainer, width=largura, height=altura, text="Culinária servida: ", font=self.fonteT3, bg=self.yellow)
@@ -198,6 +194,7 @@ class View:
 
         self.frameTelaAlterar = tk.Frame(self.root, bg=self.yellow)
         self.frameTelaAlterar.pack(fill="both", expand=True)
+        self.frameAtual = self.frameTelaAlterar
 
         #Tamanho dos componentes
         largura = 18
@@ -259,9 +256,9 @@ class View:
         labelCategoria.grid(column=1, row=0, padx=margemx, pady=margemy, sticky="w")
 
         #Combobox de categoria de restaurante
-        self.comboCategoriaAlterar = ttk.Combobox(bottomContainer, width=largura, font=self.fonteT3, values=["Familiar/Casual", "Fast Food", "Café", "Luxo", "Clássico "])
+        self.comboCategoriaAlterar = ttk.Combobox(bottomContainer, width=largura, font=self.fonteT3, values=["Familiar/casual", "Fast Food", "Café", "Luxo", "Clássico"])
         self.comboCategoriaAlterar.grid(column=1, row=1, padx=margemx, pady=margemy, sticky="nsew")
-        categorias = {1: "familiar/Casual", 2: "Fast Food", 3: "Café", 4: "Luxo", 5:"Clássico"}
+        categorias = {1: "Familiar/casual", 2: "Fast Food", 3: "Café", 4: "Luxo", 5:"Clássico"}
         self.comboCategoriaAlterar.set(categorias.get(restaurante['id_categoria']))
 
         labelCulinaria = tk.Label(bottomContainer, width=largura, height=altura, text="Culinária servida: ", font=self.fonteT3, bg=self.yellow)
@@ -322,6 +319,7 @@ class View:
         self.frameTelaPrincipal.pack_forget()
 
         self.frameTelaPesquisa = tk.Frame(self.root, bg=self.yellow)
+        self.frameAtual = self.frameTelaPesquisa
         self.frameTelaPesquisa.pack(fill="both", expand=True)
 
         topContainer = tk.Frame(self.frameTelaPesquisa, bg=self.yellow)
@@ -417,6 +415,7 @@ class View:
         self.frameTelaPrincipal.pack_forget()
 
         self.framePesquisaConsulta = tk.Frame(self.root, bg=self.yellow)
+        self.frameAtual = self.framePesquisaConsulta
         self.framePesquisaConsulta.pack(fill="both", expand=True)
 
         topContainer = tk.Frame(self.framePesquisaConsulta, bg=self.yellow)
@@ -486,7 +485,7 @@ class View:
         self.frameTelaPrincipal.pack(fill="both", expand=True)
 
     def  alertSucesso(self, mensagem):
-        self.root.withdraw()
+        frameAberto = self.frameAtual
 
         alerta = Toplevel()
         alerta.geometry("300x150")
@@ -496,11 +495,11 @@ class View:
         label.pack()
 
         button = tk.Button(alerta, width=12, height=2, font=self.fonteT4, text="OK", bg=self.darkyellow,
-                           command=lambda: self.fecharJanela(alerta))
+                           command=lambda: self.fecharJanela(alerta, frameAberto))
         button.pack(pady=20)
 
     def  alertErro(self, mensagem):
-        self.root.withdraw()
+        frameAberto = self.frameAtual
 
         alerta = Toplevel()
         alerta.geometry("300x150")
@@ -510,16 +509,18 @@ class View:
         label.pack()
 
         button = tk.Button(alerta, width=12, height=2, font=self.fonteT4, text="OK", bg=self.darkyellow,
-                           command=lambda: self.fecharJanela(alerta))
+                           command=lambda: self.fecharJanela(alerta, frameAberto))
         button.pack(pady=20)
     
-    def fecharJanela(self, tela):
+    def fecharJanela(self, tela, frameAberto):
         if tela:
             tela.destroy()
 
-        self.root.deiconify()
+        self.frameAtual = frameAberto
+        self.frameAtual.pack_forget()
+        self.frameTelaPrincipal.pack(fill="both", expand=True)
 
-    def close(self, evento=None):
+    def close(self):
         sys.exit()
 
 

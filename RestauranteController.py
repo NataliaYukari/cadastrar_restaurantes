@@ -28,6 +28,7 @@ class Controller:
             restaurante = self.model.buscarRestaurante(nome_restaurante)
 
             if restaurante:
+                self.id_restaurante = restaurante['id_restaurante']
                 self.view.telaAlterar(restaurante)
 
             else:
@@ -38,7 +39,7 @@ class Controller:
 
     def alterarRestaurante(self, nome, localizacao, nota, categoria, culinaria, preco):
         try:
-            self.model.alterarRestaurante(nome, localizacao, nota, categoria, culinaria, preco)
+            self.model.alterarRestaurante(self.id_restaurante, nome, localizacao, nota, categoria, culinaria, preco)
             self.view.alertSucesso("Alterado")
 
         except Exception as erro:

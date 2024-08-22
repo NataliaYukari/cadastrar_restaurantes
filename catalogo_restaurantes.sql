@@ -36,3 +36,4 @@ SET	nome = "Burger King", localizacao = "Shopping Bouleavrd",
  nota = 4, id_categoria = 2, culinaria = "Lanches", preco = "$"
 WHERE nome = "Burger King ";
 
+SELECT * FROM Categorias;

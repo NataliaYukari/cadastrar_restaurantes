@@ -30,7 +30,7 @@ class Model:
     cursor = self.conexao.cursor()
 
     try:
-      if categoria == "Familiar/Casual":
+      if categoria == "Familiar/casual":
         id_categoria = self.categoria1.id
 
       elif categoria == "Fast Food":
@@ -64,16 +64,13 @@ class Model:
     cursor = self.conexao.cursor(dictionary=True)
 
     try: 
-      sql = "SELECT nome, localizacao, nota, id_categoria, culinaria, preco FROM Restaurantes WHERE nome = %s"
+      sql = "SELECT id_restaurante, nome, localizacao, nota, id_categoria, culinaria, preco FROM Restaurantes WHERE nome = %s"
       valores = (nome_restaurante,)
       cursor.execute(sql, valores)
       restaurante = cursor.fetchone()
       cursor.close()
 
-      if restaurante:
-        return restaurante
-      else:
-        return None
+      return restaurante
 
     except mysql.connector.Error as erro:
       print(f"Erro ao buscar restaurante: {erro}")
@@ -81,12 +78,13 @@ class Model:
     
     except Exception as erro2:
       print(f"Erro inesperado: {erro2}")
+      return None
 
-  def alterarRestaurante(self, nome, localizacao, nota, categoria, culinaria, preco): 
+  def alterarRestaurante(self, id_restaurante, nome, localizacao, nota, categoria, culinaria, preco): 
     cursor = self.conexao.cursor()
 
     try:
-      if categoria == "Familiar/Casual":
+      if categoria == "Familiar/casual":
         id_categoria = self.categoria1.id
 
       elif categoria == "Fast Food":
@@ -101,11 +99,11 @@ class Model:
       elif categoria == "Clássico":
         id_categoria = self.categoria5.id
 
-      cursor.execute("SELECT id_restaurante FROM Restaurantes WHERE nome = %s", (nome,))
-      id_restaurante = cursor.fetchone()
+      #cursor.execute("SELECT * FROM Restaurantes WHERE id_restaurante = %s", (self.id_restaurante))
+      #id_restaurante = cursor.fetchone()
 
-      sql2 = "UPDATE Restaurantes SET nome= %s, localizacao = %s, nota = %s, id_categoria = %s, culinaria = %s, preco = %s WHERE id_restaurante = %s"
-      valores = (nome, localizacao, nota, id_categoria, culinaria, preco, id_restaurante[0])
+      sql2 = "UPDATE Restaurantes SET nome = %s, localizacao = %s, nota = %s, id_categoria = %s, culinaria = %s, preco = %s WHERE id_restaurante = %s"
+      valores = (nome, localizacao, nota, id_categoria, culinaria, preco, id_restaurante)
     
       cursor.execute(sql2, valores)
       self.conexao.commit()
