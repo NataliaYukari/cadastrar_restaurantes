@@ -17,7 +17,7 @@ class Model:
       except Error as erro:
          print(f"Não conectado ao banco de dados: {erro}")
 
-      #Criação das categorias
+      # Criação das categorias
       self.categoria1 = Categoria(1, "Familiar/casual")
       self.categoria2 = Categoria(2, "Fast food")
       self.categoria3 = Categoria(3, "Café")
@@ -96,9 +96,6 @@ class Model:
 
       elif categoria == "Clássico":
         id_categoria = self.categoria5.id
-
-      #cursor.execute("SELECT * FROM Restaurantes WHERE id_restaurante = %s", (self.id_restaurante))
-      #id_restaurante = cursor.fetchone()
 
       sql2 = "UPDATE Restaurantes SET nome = %s, localizacao = %s, nota = %s, id_categoria = %s, culinaria = %s, preco = %s WHERE id_restaurante = %s"
       valores = (nome, localizacao, nota, id_categoria, culinaria, preco, id_restaurante)

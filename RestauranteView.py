@@ -11,15 +11,15 @@ class View:
     def __init__(self, root):
         self.controller = None
 
-        #Elementos usados no componentes
-        #Cores
+        # Elementos usados no componentes
+        # Cores
         self.yellow = "#FBEA91"
         self.orange = "#FBD26A"
         self.red = "#FF7E36"
         self.darkyellow = "#FFE457"
         self.white = "#FFFFFF"
 
-        #Fontes
+        # Fontes
         self.fonteT1 = ("Times New Roman", 20, "bold")
         self.fonteT2 = ("Times New Roman", 18, "bold")
         self.fonteT3 = ("Times New Roman", 16)
@@ -31,18 +31,19 @@ class View:
         self.root.geometry("500x550")
         self.frameAtual = None
 
-        #Bloco principal
+        # Bloco principal
         self.telaPrincipal()
 
     def set_controller(self, controller):
+        # Definindo o controller para o view
         self.controller = controller
 
     def telaPrincipal(self):
-        #Tamanho dos botões
+        # Tamanho dos botões
         largura = 13
         altura = 2
 
-        #Tamanho de margem
+        # Tamanho de margem
         margemx= 20
         margemy = 20
 
@@ -79,22 +80,22 @@ class View:
         self.root.bind('<Escape>', self.close)
 
     def escolherOpcao(self, opcao):
-        #Encaminha para o controller a opção escolhida na tela principal
+        # Encaminha para o controller a opção escolhida na tela principal
         self.controller.escolherOpcao(opcao)
 
     def telaCadastro(self):
+        # Tela como formulário de cadastro
         self.frameTelaPrincipal.pack_forget()
 
         self.frameTelaCadastro = tk.Frame(self.root, bg=self.yellow)
         self.frameTelaCadastro.pack(fill="both", expand=True)
-
         self.frameAtual = self.frameTelaCadastro
 
-        #Tamanho dos componentes
+        # Tamanho dos componentes
         largura = 18
         altura= 2
 
-        #Tamanho de margem
+        # Tamanho de margem
         margemx = 10
         margemy = 5
 
@@ -121,7 +122,7 @@ class View:
         labelNota = tk.Label(bottomContainer, width=largura, height=altura, text="Nota: ", font=self.fonteT3, bg=self.yellow)
         labelNota.grid(column=0, row=4, padx=margemx, pady=margemy, sticky="w")
 
-        #Radiobutton de nota
+        # Radiobutton de nota
         radioContainer = tk.Frame(bottomContainer, bg=self.yellow)
         radioContainer.grid(column=0, row=5, padx=5, pady=5)
 
@@ -145,7 +146,7 @@ class View:
         labelCategoria = tk.Label(bottomContainer, width=largura, height=altura, text="Categoria: ", font=self.fonteT3, bg=self.yellow)
         labelCategoria.grid(column=1, row=0, padx=margemx, pady=margemy, sticky="w")
 
-        #Combobox de categoria de restaurante
+        # Combobox de categoria de restaurante
         self.categoria = tk.StringVar()
         comboCategoria = ttk.Combobox(bottomContainer, width=largura, font=self.fonteT3, textvariable=self.categoria,
                                       values=["Familiar/casual", "Fast Food", "Café", "Luxo", "Clássico"])
@@ -160,13 +161,13 @@ class View:
         labelPreco = tk.Label(bottomContainer, width=largura, height=altura, text="Faixa de preço: ", font=self.fonteT3, bg=self.yellow)
         labelPreco.grid(column=1, row=4, padx=margemx, pady=margemy, sticky="w")
 
-        #Combobox de faixa de preço
+        # Combobox de faixa de preço
         self.preco = tk.StringVar()
         comboPreco = ttk.Combobox(bottomContainer, width=largura, font=self.fonteT3, textvariable=self.preco,
                                   values=["$", "$$", "$$$"])
         comboPreco.grid(column=1, row=5, padx=margemx, pady=margemy)
 
-        #Botões
+        # Botões
         buttonCadastro = tk.Button(bottomContainer, width=12, height=2, font=self.fonteT4, text="Cadastrar", bg=self.orange,
                                    command=self.cadastrarRestaurante)
         buttonCadastro.grid(column=0, row=6, padx=margemx, pady=40, sticky="e")
@@ -175,14 +176,14 @@ class View:
         buttonVoltar.grid(column=1, row=6, padx=margemx, pady=40, sticky="w")
 
     def cadastrarRestaurante(self):
+        # Pega os valores preenchidos para encaminhá-los para o controller
         nome = self.entryNome.get()
         localizacao = self.entryLocalizacao.get()
         nota = self.radioNota.get()
         categoria = self.categoria.get()
         culinaria = self.entryCulinaria.get()
         preco = self.preco.get()
-
-        # CARECE DE CONFIRMAÇÃO 
+ 
         # Verifica se todos os campos foram preenchidos
         if nome and localizacao and nota and categoria and culinaria and preco:
             self.controller.cadastrarRestaurante(nome, localizacao, nota, categoria, culinaria, preco)
@@ -190,17 +191,18 @@ class View:
             self.alertErro(": preencha todos os campos")
 
     def telaAlterar(self, restaurante): 
+        # Tela com o formulário para alterar dados e botão para exclusão de dados
         self.frameTelaPesquisa.pack_forget()
 
         self.frameTelaAlterar = tk.Frame(self.root, bg=self.yellow)
         self.frameTelaAlterar.pack(fill="both", expand=True)
         self.frameAtual = self.frameTelaAlterar
 
-        #Tamanho dos componentes
+        # Tamanho dos componentes
         largura = 18
         altura= 2
 
-        #Tamanho de margem
+        # Tamanho de margem
         margemx = 10
         margemy = 5
 
@@ -231,7 +233,7 @@ class View:
         labelNota = tk.Label(bottomContainer, width=largura, height=altura, text="Nota: ", font=self.fonteT3, bg=self.yellow)
         labelNota.grid(column=0, row=4, padx=margemx, pady=margemy, sticky="w")
 
-        #Radiobutton de nota
+        # Radiobutton de nota
         radioContainer = tk.Frame(bottomContainer, bg=self.yellow)
         radioContainer.grid(column=0, row=5, padx=5, pady=5)
 
@@ -255,7 +257,7 @@ class View:
         labelCategoria = tk.Label(bottomContainer, width=largura, height=altura, text="Categoria: ", font=self.fonteT3, bg=self.yellow)
         labelCategoria.grid(column=1, row=0, padx=margemx, pady=margemy, sticky="w")
 
-        #Combobox de categoria de restaurante
+        # Combobox de categoria de restaurante
         self.comboCategoriaAlterar = ttk.Combobox(bottomContainer, width=largura, font=self.fonteT3, values=["Familiar/casual", "Fast Food", "Café", "Luxo", "Clássico"])
         self.comboCategoriaAlterar.grid(column=1, row=1, padx=margemx, pady=margemy, sticky="nsew")
         categorias = {1: "Familiar/casual", 2: "Fast Food", 3: "Café", 4: "Luxo", 5:"Clássico"}
@@ -272,12 +274,12 @@ class View:
         labelPreco = tk.Label(bottomContainer, width=largura, height=altura, text="Faixa de preço: ", font=self.fonteT3, bg=self.yellow)
         labelPreco.grid(column=1, row=4, padx=margemx, pady=margemy, sticky="w")
 
-        #Combobox de faixa de preço
+        # Combobox de faixa de preço
         self.comboPrecoAlterar = ttk.Combobox(bottomContainer, width=largura, font=self.fonteT3, values=["$", "$$", "$$$"])
         self.comboPrecoAlterar.grid(column=1, row=5, padx=margemx, pady=margemy)
         self.comboPrecoAlterar.set(restaurante['preco'])
 
-        #Botões
+        # Botões
         buttonContainer = tk.Frame(self.frameTelaAlterar, bg=self.yellow)
         buttonContainer.pack(padx=10, pady=5)
 
@@ -293,6 +295,7 @@ class View:
         buttonVoltar.grid(column=2, row=0, padx=margemx, pady=margemy)
 
     def alterarRestaurante(self):
+        # Passa os valores preenchidos pelo usuário para o controller
         nome = self.entryNomeAlterar.get()
         localizacao = self.entryLocalizacaoAlterar.get()
         nota = self.radioNotaAlterar.get()
@@ -300,7 +303,6 @@ class View:
         culinaria = self.entryCulinariaAlterar.get()
         preco = self.comboPrecoAlterar.get()
 
-        # CARECE DE CONFIRMAÇÃO 
         # Verifica se todos os campos foram preenchidos
         if nome and localizacao and nota and categoria and culinaria and preco:
             self.controller.alterarRestaurante(nome, localizacao, nota, categoria, culinaria, preco)
@@ -308,11 +310,14 @@ class View:
             self.alertErro(": preencha todos os campos")       
 
     def excluirRestaurante(self):
+        # Se o usuário escolher excluir o registro, passa a opção para o controller
         nome = self.entryNomeAlterar.get()
         self.controller.excluirRestaurante(nome)
 
     def telaPesquisaAlterar(self):
-        #Tamanho de margem
+        # Tela de pesquisar restaurante p/ a opção de alterar/excluir
+
+        # Tamanho de margem
         margemx= 20
         margemy= 20
 
@@ -342,16 +347,18 @@ class View:
         buttonVoltar.grid(column=1, row=0, padx=margemx, pady=margemy, sticky="e")       
 
     def buscarRestaurante(self):
+        # Pega o valor inserido na TelaPesquisaAlterar e o passa para o controller
         nome_restaurante = self.entryNomeAlterar.get()
         self.controller.buscarRestaurante(nome_restaurante)
 
     def telaConsulta(self, restaurante):
+        # Mostra as informações de um único restaurante
         self.framePesquisaConsulta.pack_forget()
 
         self.frameTelaConsulta = tk.Frame(self.root, bg=self.yellow)
         self.frameTelaConsulta.pack(fill="both", expand=True) 
 
-        #Medidas de margem
+        # Medidas de margem
         margemx = 20
         margemy= 15
 
@@ -408,7 +415,9 @@ class View:
         buttonVoltar.pack(padx=margemx, pady=(20, 40))
 
     def telaPesquisaConsulta(self):
-        #Tamanho de margem
+        # Tela de pesquisa para consultar um restaurante
+
+        # Tamanho de margem
         margemx= 20
         margemy= 20
 
@@ -438,10 +447,13 @@ class View:
         buttonVoltar.grid(column=1, row=0, padx=margemx, pady=margemy, sticky="e")  
 
     def buscarRestauranteConsulta(self):
+        # Pega o valor digitado na telaPesquisaConsulta e o passa para o controller
         nome_restaurante =self.entryNomeConsulta.get()
         self.controller.buscarRestauranteConsulta(nome_restaurante)
 
     def telaLista(self): 
+        # Lista todos os registros 
+
         registros = self.consultarTodos()
         self.frameTelaPrincipal.pack_forget()
 
@@ -471,20 +483,25 @@ class View:
         buttonVoltar.pack(padx=20, pady=(30, 40))
 
     def consultarTodos(self):
+        # Retorna todos os registros para listagem
         registros = self.controller.consultarTodos()
         return registros
 
     def buttonRetornar(self, container, tela):
+        # Botão usado em várias telas para voltar à tela principal
         button = tk.Button(container, width=12, height=2, font=self.fonteT4, text="Voltar", bg=self.darkyellow,
                                  command=lambda: self.retornarTelaPrincipal(tela))
         return button
         
     def retornarTelaPrincipal(self, tela):
+        # Função que faz a transição de telas para a tela principal 
+
         tela.pack_forget()
 
         self.frameTelaPrincipal.pack(fill="both", expand=True)
 
     def  alertSucesso(self, mensagem):
+        # Janela de aviso quando uma requisição dá certo
         frameAberto = self.frameAtual
 
         alerta = Toplevel()
@@ -499,6 +516,7 @@ class View:
         button.pack(pady=20)
 
     def  alertErro(self, mensagem):
+        # Janela de aviso quando uma requisição não dá certo
         frameAberto = self.frameAtual
 
         alerta = Toplevel()
@@ -513,6 +531,7 @@ class View:
         button.pack(pady=20)
     
     def fecharJanela(self, tela, frameAberto):
+        # Função que fecha a janela de aviso e volta à tela principal na janela base
         if tela:
             tela.destroy()
 
