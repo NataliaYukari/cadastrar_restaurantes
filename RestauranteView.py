@@ -471,9 +471,13 @@ class View:
 
         lista = scrolledtext.ScrolledText(midContainer, width=40, height=15, wrap=tk.WORD, bg=self.yellow, font=self.fonteT3)
         lista.delete("1.0", tk.END)
-        for registro in registros:
-            linha = f"{registro[0]}. {registro[1]}\t\t{registro[2]}\t\t{registro[6]}\n"
-            lista.insert(tk.END, linha)
+        if registros:
+            for registro in registros:
+                linha = f"{registro[0]}. {registro[1]}\t\t{registro[2]}\t\t{registro[6]}\n"
+                lista.insert(tk.END, linha)
+        else:
+            lista.insert(tk.END, "Lista vazia!")
+
         lista.pack()
 
         bottomContainer = tk.Frame(self.frameTelaLista, bg=self.yellow)
