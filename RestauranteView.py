@@ -380,7 +380,7 @@ class View:
         labelCategoria = tk.Label(midContainer, text="Categoria: ", bg=self.yellow, font=self.fonteT3)
         labelCategoria.grid(column=0, row=1, padx=margemx, pady=margemy, sticky="w")
 
-        categorias = {1: "familiar/Casual", 2: "Fast Food", 3: "Café", 4: "Luxo", 5:"Clássico"}
+        categorias = {1: "Familiar/casual", 2: "Fast Food", 3: "Café", 4: "Luxo", 5:"Clássico"}
         outCategoria = tk.Label(midContainer, text=categorias.get(restaurante['id_categoria']), bg=self.yellow, font=self.fonteT3)
         outCategoria.grid(column=1, row=1, padx=margemx, pady=margemy)
 
