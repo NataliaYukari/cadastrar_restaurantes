@@ -17,7 +17,7 @@ Atividade avaliativa da disciplina de Construção de Aplicações em Ambiente V
 - GUI: [Python Tkinter] (https://docs.python.org/3/library/tkinter.html)
 - Banco de dados [MySQL] (https://www.mysql.com/)
 
-####################################################################################################################
+#
 
 # Restaurant registration application
 
